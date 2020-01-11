@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="mt-4">
+        <ValidationObserver v-slot="{  invalid  }">
+            <form @submit.prevent="userInfo()">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputName">Name</label>
+                        <validation-provider rules="alpha|required" v-slot="{ errors }" name="name">
+                            <input type="text" class="form-control" id="inputName" placeholder="Name" v-model="user.name">
+                            <span>{{ errors[0] }}</span>
+                        </validation-provider >
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputSurname">Surname</label>
+                        <validation-provider rules="alpha|required" v-slot="{ errors }" name="surname">
+                            <input type="text" class="form-control" id="inputSurname" placeholder="Surname" v-model="user.surname">
+                            <span>{{ errors[0] }}</span>
+                        </validation-provider>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Email</label>
+                        <validation-provider rules="email|required" v-slot="{ errors }" name="email">
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" v-model="user.email">
+                            <span>{{ errors[0] }}</span>
+                        </validation-provider>
+                    </div>
+                    <div class="form-group col-md-6 d-flex">
+                        <div class="col-md-6">
+                            <label for="password">Password</label>
+                            <Validation-provider-confirm vid="first" name="First" rules="required|confirmedBy:@second" v-slot="{ errors }">
+                                <input type="password" v-model="user.password" class="form-control" id="password"/>
+                                <span>{{ errors[0] }}</span>
+                            </Validation-provider-confirm>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="conf">Password confirmation</label>
+                            <Validation-provider-confirm vid="second" name="Second" rules="required" v-slot="{ errors }">
+                                <input type="password" v-model="user.confirmation" class="form-control" id="conf"/>
+                                <span>{{ errors[0] }}</span>
+                            </Validation-provider-confirm>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="address">Address</label>
+                    <validation-provider rules="alpha|required" v-slot="{ errors }" name="address">
+                        <input type="text" class="form-control" id="address" placeholder="Address" v-model="user.address">
+                        <span>{{ errors[0] }}</span>
+                    </validation-provider>
+                </div>
+                <div>
+                <label>Roll</label>
+                    <select v-model="user.roll">
+                        <option disabled value="">Please select one</option>
+                        <option value="Admin">Admin</option>
+                        <option value="User">User</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" :disabled="invalid">Sign in</button>
+            </form>
+        </ValidationObserver>
+    </div>
+</div>

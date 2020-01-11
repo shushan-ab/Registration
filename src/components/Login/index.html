@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="mt-4">
+        <ValidationObserver v-slot="{  invalid  }">
+            <form @submit.prevent="userInfo()">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Email</label>
+                        <validation-provider rules="email|required" v-slot="{ errors }" name="email">
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" v-model="user.email">
+                            <span>{{ errors[0] }}</span>
+                        </validation-provider>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Password</label>
+                        <validation-provider rules="alpha_num" v-slot="{ errors }" name="password">
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="Password" v-model="user.password">
+                            <span>{{ errors[0] }}</span>
+                        </validation-provider>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" :disabled="invalid">Sign in</button>
+            </form>
+        </ValidationObserver>
+    </div>
+</div>

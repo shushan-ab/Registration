@@ -1,0 +1,17 @@
+.add-input {
+    width: 110px;
+}
+.bag {
+    width: 50px;
+    height: 50px
+}
+.shopping-bag {
+    position: relative;
+}
+.product-count {
+    position: absolute;
+    top: 0;
+    color: red;
+    font-weight: bold;
+    left: 47px
+}

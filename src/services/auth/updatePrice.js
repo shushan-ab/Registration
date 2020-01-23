@@ -1,18 +1,15 @@
 import Axios from 'axios';
 
-export default (context, data) => Axios.post('addProduct', data).then((response) => {
-  if (response && response.status === 201) {
-    // eslint-disable-next-line no-console
-    console.log('responseeeeee', response);
-    context.products.unshift({
-      name: response.data.product.name,
-      price: response.data.product.price,
-      quantity: response.data.product.quantity,
-      newQuantity: 0,
-      editing: false,
-    });
+export default (context, price, id) => Axios.put(`products/${id}`, price).then((response) => {
+  if (response && response.status === 200) {
+    context.$toasted.success(response.data.status);
+  } else {
+    context.$toasted.error(response.data.status);
   }
 }).catch((error) => {
-  // eslint-disable-next-line no-console
-  console.log('error from prouct', error.response);
+  if (error && error.response && error.response.data) {
+    if (error.response.data.status) {
+      console.log('error message', error.response.data.status);
+    }
+  }
 });

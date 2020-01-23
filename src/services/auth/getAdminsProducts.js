@@ -1,17 +1,18 @@
 import Axios from 'axios';
 
-export default (context) => Axios.get('getProducts').then((response) => {
+export default (context) => Axios.get('products').then((response) => {
   if (response && response.status === 200) {
-    // eslint-disable-next-line no-console
-    console.log('get all products', response.data.product);
     response.data.product.map((item) => {
-      context.products.push({
+      context.products.unshift({
         ...item,
-        newQuantity: 1,
+        editing: false,
       });
     });
   }
 }).catch((error) => {
-  // eslint-disable-next-line no-console
-  console.log('error from prouct', error);
+  if (error && error.response && error.response.data) {
+    if (error.response.data.status) {
+      console.log('error message', error.response.data.status);
+    }
+  }
 });

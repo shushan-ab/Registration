@@ -39,7 +39,7 @@ export default new Router({
       name: 'Order',
       path: '/order',
       component: Order,
-      meta: { auth: false, admin: true },
+      meta: { auth: true, admin: false },
     },
     {
       name: 'Admin',
@@ -47,7 +47,6 @@ export default new Router({
       component: Admin,
       meta: { auth: false, admin: true },
     },
-
   ],
   // TODO:props
 });

@@ -23,5 +23,11 @@ export default {
       console.log(productId);
       authService.deleteOrderedProduct(this, productId);
     },
+    updateQuantity(product) {
+      const payload = {
+        quantity: parseInt(product.product_quantity),
+      };
+      authService.updateOrderQuantity(this, product.id, payload);
+    },
   },
 };

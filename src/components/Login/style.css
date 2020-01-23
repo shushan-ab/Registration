@@ -48,10 +48,13 @@ input, button:focus {
 }
 .row-border:last-child {
     border-bottom: 0;
-}
+}f
 .row-height {
     height: 100%;
 }
 input:checked{
     background-color: blue;
+}
+.fields small {
+    font-size: 11px;
 }

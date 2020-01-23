@@ -23,7 +23,7 @@ export default {
         password: '',
         address: '',
         confirmation: '',
-        roll: '',
+        role: '',
       },
     };
   },

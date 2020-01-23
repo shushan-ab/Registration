@@ -7,5 +7,9 @@ export default () => Axios.get('logout').then((response) => {
     Vue.router.push('/login');
   }
 }).catch((error) => {
-  console.log('error', error.response);
+  if (error && error.response && error.response.data) {
+    if (error.response.data.status) {
+      console.log('error message', error.response.data.status);
+    }
+  }
 });

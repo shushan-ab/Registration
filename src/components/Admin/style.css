@@ -15,3 +15,6 @@
     font-weight: bold;
     left: 47px
 }
+.adding-product small {
+    font-size: 10px;
+}

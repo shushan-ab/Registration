@@ -1,10 +1,57 @@
-<div class="container">
-    <div class = 'row'>
-        <div class="mr-3">
-            <router-link to="/signup">SIGN UP</router-link>
-        </div>
-        <div>
-            <router-link to="/login">LOGIN</router-link>
+<div class="main-w3layouts wrapper">
+    <h1>Welcome</h1>
+    <div class="main-agileinfo">
+        <div class="agileits-top">
+            <ValidationObserver v-slot="{  invalid  }">
+                <form @submit.prevent="userInfo()">
+                    <validation-provider rules="alpha|required" v-slot="{ errors }" name="name" >
+                        <div class="fields mb-3">
+                        <input class="text" type="text" id="inputName" placeholder="Name" required="" v-model="user.name" >
+                        <small class="text-danger">{{ errors[0] }}</small>
+                        </div>
+                    </validation-provider >
+                    <validation-provider rules="alpha|required" v-slot="{ errors }" name="surname">
+                        <div class="fields mb-3">
+                        <input class="text mb-3" type="text" id="inputSurname" placeholder="Surname" required="" v-model="user.surname">
+                        <small class="text-danger">{{ errors[0] }}</small>
+                        </div>
+                    </validation-provider>
+                    <validation-provider rules="email|required" v-slot="{ errors }" name="email">
+                        <div class="fields mb-3">
+                        <input class="text mb-3" type="email" id="inputEmail4" placeholder="Email" required="" v-model="user.email">
+                        <small class="text-danger">{{ errors[0] }}</small>
+                        </div>
+                    </validation-provider>
+                    <Validation-provider-confirm vid="first" name="Password" rules="required|confirmedBy:@second" v-slot="{ errors }">
+                        <div class="fields mb-3">
+                        <input class="text mb-3" type="password"  placeholder="Password" required="" v-model="user.password" id="password"/>
+                        <small class="text-danger">{{ errors[0] }}</small>
+                        </div>
+                    </Validation-provider-confirm>
+                    <Validation-provider-confirm vid="second" name="Confirmation" rules="required" v-slot="{ errors }">
+                        <div class="fields mb-3">
+                        <input class="text mb-3" type="password" placeholder="Confirmation" required="" v-model="user.confirmation"  id="conf"/>
+                        <small class="text-danger">{{ errors[0] }}</small>
+                        </div>
+                    </Validation-provider-confirm>
+                    <validation-provider rules="alpha|required" v-slot="{ errors }" name="address">
+                        <div class="fields mb-3">
+                        <input type="text" class="text mb-3" id="address" placeholder="Address" required="" v-model="user.address">
+                        <small class="text-danger">{{ errors[0] }}</small>
+                        </div>
+                    </validation-provider>
+                    <select v-model="user.role">
+                        <option disabled value="">Please select one</option>
+                        <option value="Admin">Admin</option>
+                        <option value="User">User</option>
+                    </select>
+                    <div class="wthree-text">
+                        <div class="clear"> </div>
+                    </div>
+                    <input type="submit" value="SIGNUP" :disabled="invalid">
+                </form>
+            </ValidationObserver>
+            <p>Don't have an Account? <router-link to="/login"><a href="#"> Login Now!</a></router-link></p>
         </div>
     </div>
 </div>

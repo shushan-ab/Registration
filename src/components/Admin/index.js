@@ -6,6 +6,7 @@ import authService from '../../services/auth';
 // import { bus } from '../../main'
 Vue.router = router;
 
+
 export default {
   name: 'User',
   data() {
@@ -18,6 +19,9 @@ export default {
       },
       number: 0,
       products: [],
+      newPrice: null,
+      samePrice: null,
+      disable: false,
     };
   },
   components: {
@@ -26,7 +30,8 @@ export default {
   },
   async mounted() {
     await authService.user(this);
-    authService.getAllProducts(this);
+    authService.getAdminsProducts(this);
+    console.log('this products', this.products);
   },
   methods: {
     Logout() {
@@ -34,22 +39,52 @@ export default {
     },
     addProduct() {
       authService.storeProduct(this, this.product);
+      this.product = {
+        name: null,
+        price: null,
+        quantity: null,
+      };
+      //this.$refs.observer.reset();
     },
-    addToCard(product) {
-      // eslint-disable-next-line no-plusplus
-      if(this.user.orders_count === null) {
-        this.user.orders_count = 1;
+    editPrice(product) {
+      console.log('product editing', product);
+      product.editing = true;
+      this.samePrice = product.price;
+      this.newPrice = product.price;
+    },
+    updatePrice(product) {
+      console.log('product updating', product);
+      if (this.newPrice == '' || this.newPrice <= 0) {
+        product.price = this.samePrice;
+        product.editing = false;
+        this.samePrice = null;
       } else {
-        this.user.orders_count++;
+        product.price = this.newPrice;
+        product.editing = false;
+        this.newPrice = null;
+        const payload = {
+          price: parseInt(product.price),
+        };
+        if (payload.price > 0) {
+          authService.updatePrice(this, payload, product.id);
+        }
       }
-      authService.storeToCard({
-        user_id: this.user.id,
-        product_id: product.id,
-        number: parseInt(product.newQuantity),
-      });
     },
-    orders() {
-      Vue.router.push('order');
+    updateQuantity(product) {
+      const payload = {
+        quantity: parseInt(product.quantity),
+      };
+      if (payload.quantity > 0) {
+        authService.updateQuantity(payload, product.id);
+      }
+    },
+    removeOrder(productId) {
+      const vm = this;
+      vm.disable = true;
+      authService.deleteProduct(this, productId);
+      setTimeout(function(){
+        vm.disable = false;
+      },2000);
     },
   },
 };

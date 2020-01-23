@@ -7,6 +7,9 @@ export default (context) => Axios.get('getProductsFromCard').then((response) => 
     });
   }
 }).catch((error) => {
-  // eslint-disable-next-line no-console
-  console.log('error from prouct', error.response);
+  if (error && error.response && error.response.data) {
+    if (error.response.data.status) {
+      console.log('error message', error.response.data.status);
+    }
+  }
 });

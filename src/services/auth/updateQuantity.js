@@ -1,18 +1,13 @@
 import Axios from 'axios';
 
-export default (product) => Axios.put(`updatePrice/${product.id}`, product).then((response) => {
-  if (response && response.status === 201) {
-    // eslint-disable-next-line no-console
-    console.log('upeeeeeeeeeeee', response);
-    // context.products.unshift({
-    //   name: response.data.product.name,
-    //   price: response.data.product.price,
-    //   quantity: response.data.product.quantity,
-    //   newQuantity: 0,
-    //   editing: false,
-    // });
+export default (quantity, id) => Axios.put(`products/${id}`, quantity).then((response) => {
+  if (response && response.status === 200) {
+    console.log('Quantity updated', response);
   }
 }).catch((error) => {
-  // eslint-disable-next-line no-console
-  console.log('error from prouct', error.response);
+  if (error && error.response && error.response.data) {
+    if (error.response.data.status) {
+      console.log('error message', error.response.data.status);
+    }
+  }
 });

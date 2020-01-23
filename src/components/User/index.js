@@ -27,29 +27,24 @@ export default {
   async mounted() {
     await authService.user(this);
     authService.getAllProducts(this);
+    // if(this.user.orders_count === 0) {
+    //   this.user.orders_count = '';
+    // }
   },
   methods: {
     Logout() {
       authService.logout();
     },
-    addProduct() {
-      authService.storeProduct(this, this.product);
-    },
     addToCard(product) {
-      // eslint-disable-next-line no-plusplus
-      if(this.user.orders_count === null) {
-        this.user.orders_count = 1;
-      } else {
-        this.user.orders_count++;
-      }
       authService.storeToCard({
         user_id: this.user.id,
         product_id: product.id,
         number: parseInt(product.newQuantity),
-      });
+      }, this);
+      console.log('myAlls', product);
     },
     orders() {
-      Vue.router.push('order');
+      Vue.router.push({ name: 'Order' });
     },
   },
 };

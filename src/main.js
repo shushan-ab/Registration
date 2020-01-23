@@ -1,13 +1,14 @@
 import Vue from 'vue';
 import Axios from 'axios';
 import { ValidationObserver } from 'vee-validate';
+import Toasted from 'vue-toasted';
 import App from './App.vue';
 import router from '../router';
 
 // eslint-disable-next-line import/prefer-default-export
 export const bus = new Vue();
 
-
+Vue.use(Toasted, { duration: 1000 });
 Vue.config.productionTip = false;
 Vue.router = router;
 // Vue.$route = router;
@@ -19,15 +20,15 @@ if (token) {
   // Axios.defaults.headers.common.Accept = 'application/json';
   Axios.defaults.headers.Authorization = `bearer ${token}`;
 }
-
 router.beforeEach((to, from, next) => {
-  console.log('user', (!to.matched.some((record) => record.meta.auth) && localStorage.getItem('token') && !!JSON.stringify(localStorage.getItem('admin'))));
-  console.log('admin', (!to.matched.some((record) => (record.meta.admin))));
-  console.log('admin', (localStorage.getItem('token')));
-  console.log('admin', (JSON.stringify(localStorage.getItem('admin'))));
+    // console.log('user', (!to.matched.some((record) => record.meta.auth) && localStorage.getItem('token') && !!JSON.stringify(localStorage.getItem('admin'))));
+  // console.log('admin', (!to.matched.some((record) => (record.meta.admin))));
+  // console.log('admin', (localStorage.getItem('token')));
+  // console.log('admin', (JSON.stringify(localStorage.getItem('admin'))));
+  // console.log('userStatus', (to.matched.some((record) => record.meta.admin)));
   if (to.matched.some((record) => record.meta.auth) && !localStorage.getItem('token')) {
     next({
-      path: 'login',
+      path: '/login',
     });
   } else if (!to.matched.some((record) => record.meta.auth) && localStorage.getItem('token') && (localStorage.getItem('admin') === 'false')) {
     next({
@@ -41,7 +42,6 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-
 Axios.interceptors.request.use((a) => {
   if (localStorage.getItem('token') && !a.headers.Authorization) {
     a.headers.common.Authorization = `bearer ${localStorage.getItem('token')}`;
@@ -56,7 +56,6 @@ Axios.interceptors.response.use((a) => a, (error) => {
   }
   return Promise.reject(error);
 });
-
 new Vue({
   router,
   render: (h) => h(App),

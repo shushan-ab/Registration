@@ -2,10 +2,12 @@ import Axios from 'axios';
 
 export default (context, data) => Axios.post('auth/signup', data).then((response) => {
   if (response && response.status === 200) {
-    // eslint-disable-next-line no-console
-    console.log(response, 'ryesyesyesyes');
+    console.log(response.data.status);
   }
 }).catch((error) => {
-  // eslint-disable-next-line no-console
-  console.log(error.response, 'errooooor');
+  if (error && error.response && error.response.data) {
+    if (error.response.data.status) {
+      console.log('error message', error.response.data.status);
+    }
+  }
 });

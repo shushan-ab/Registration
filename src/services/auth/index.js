@@ -8,6 +8,11 @@ import storeToCard from './storeToCard';
 import getProductsFromCard from './getProductsFromCard';
 import deleteOrderedProduct from './deleteOrderedProduct';
 import getCountOfProductsFromCard from './getCountOfProductsFromCard';
+import getAdminsProducts from './getAdminsProducts';
+import deleteProduct from './deleteProduct';
+import updatePrice from './updatePrice';
+import updateQuantity from './updateQuantity';
+import updateOrderQuantity from './updateOrderQuantity';
 
 export default {
   register,
@@ -20,4 +25,9 @@ export default {
   getProductsFromCard,
   deleteOrderedProduct,
   getCountOfProductsFromCard,
+  getAdminsProducts,
+  deleteProduct,
+  updatePrice,
+  updateQuantity,
+  updateOrderQuantity,
 };

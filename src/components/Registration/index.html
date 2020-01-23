@@ -44,13 +44,13 @@
                 <div class="form-group col-md-6">
                     <label for="address">Address</label>
                     <validation-provider rules="alpha|required" v-slot="{ errors }" name="address">
-                        <input type="text" class="form-control" id="address" placeholder="Address" v-model="user.address">
+                        <input type="text" class="text" id="address" placeholder="Address" required="" v-model="user.address">
                         <span>{{ errors[0] }}</span>
                     </validation-provider>
                 </div>
                 <div>
-                <label>Roll</label>
-                    <select v-model="user.roll">
+                <label>Role</label>
+                    <select class="text" v-model="user.role" placeholder="Ples">
                         <option disabled value="">Please select one</option>
                         <option value="Admin">Admin</option>
                         <option value="User">User</option>

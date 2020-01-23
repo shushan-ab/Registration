@@ -5,8 +5,9 @@ export default (context, data) => Axios.post('auth/signin', data).then((response
   if (response && response.status === 200) {
     const { token } = response.data;
     localStorage.setItem('token', token);
-    // this.$router.push({ name: 'Admin'});
-    if(response.data.user.roll === 'Admin') {
+    // this.$router.push({ name: 'Admin' });
+    console.log('dddd',response.data.user);
+    if (response.data.user.role_id === 1) {
       localStorage.setItem('admin', true);
       Vue.router.push('/admin');
     } else {
@@ -16,6 +17,9 @@ export default (context, data) => Axios.post('auth/signin', data).then((response
     }
   }
 }).catch((error) => {
-  // eslint-disable-next-line no-console
-  console.log('error', error.response);
+  if (error && error.response && error.response.data) {
+    if (error.response.data.status) {
+      console.log('error message', error.response.data.status);
+    }
+  }
 });

@@ -7,29 +7,30 @@
                 <button class="btn btn-primary" @click="Logout()" >Log Out</button>
             </div>
         </div>
-        <div class="col-6 shopping-bag">
-            <a href='#'@click="orders"><img src="../../assets/bag.jpg" class="bag" alt=""/></a>
-            <div class="product-count">
-                {{user.orders_count}}
-            </div>
-        </div>
     </div>
     <div class="container">
-        <div class="d-flex">
-            <validation-observer v-slot="{ invalid }">
+        <div class="d-flex adding-product mb-3">
+            <validation-observer v-slot="{ invalid }" ref="observer">
                 <form @submit.prevent="addProduct">
-                    <validation-provider rules="alpha|required" v-slot="{ errors }" name="name">
-                        <input type="text" class="form-control" placeholder="name" v-model="product.name">
-                        <span>{{ errors[0] }}</span>
-                    </validation-provider>
-                    <validation-provider rules="integer|required" v-slot="{ errors }" name="price">
-                        <input type="text" class="form-control" placeholder="price" v-model="product.price">
-                        <span>{{ errors[0] }}</span>
-                    </validation-provider>
-                    <validation-provider rules="integer|required" v-slot="{ errors }" name="quantity">
-                        <input type="text" class="form-control" placeholder="quantity" v-model="product.quantity">
-                    </validation-provider>
-                    <button type="submit" :disabled="invalid">Add</button>
+                    <div class="mb-3">
+                        <validation-provider rules="alpha|required" v-slot="{ errors }" name="name">
+                            <input type="text" class="form-control" placeholder="name" v-model="product.name">
+                            <small class="text-danger">{{ errors[0] }}</small>
+                        </validation-provider>
+                    </div>
+                    <div class="mb-3">
+                        <validation-provider rules="numeric|required" v-slot="{ errors }" name="price">
+                            <input type="text" class="form-control" placeholder="price" v-model="product.price">
+                            <small class="text-danger">{{ errors[0] }}</small>
+                        </validation-provider>
+                    </div>
+                    <div class="mb-3">
+                        <validation-provider rules="integer|required" v-slot="{ errors }" name="quantity">
+                            <input type="text" class="form-control" placeholder="quantity" v-model="product.quantity">
+                            <small class="text-danger">{{ errors[0] }}</small>
+                        </validation-provider>
+                    </div>
+                    <button class="btn btn-primary" type="submit" :disabled="invalid">Add</button>
                 </form>
             </validation-observer>
         </div>
@@ -39,8 +40,9 @@
                     <thead>
                     <tr>
                         <th>Product</th>
-                        <th>Number</th>
+                        <th>Quantity</th>
                         <th class="text-center">Price</th>
+                        <th>Total</th>
                         <th> </th>
                     </tr>
                     </thead>
@@ -55,13 +57,27 @@
                                 </div>
                             </td>
                             <td class="col-sm-1 col-md-1" style="text-align: center">
-                                <input type="number" min='1' class="form-control" v-model="product.newQuantity">
+                                    <validation-provider rules="required|integer|min:1" v-slot="{ errors }" name="price">
+                                        <input type="number" min="0" class="form-control" v-model="product.quantity" @keyup="updateQuantity(product)" @click="updateQuantity(product)">
+                                        <span>{{ errors[0] }}</span>
+                                    </validation-provider>
                             </td>
-                            <td class="col-sm-1 col-md-1 text-center"><strong>{{product.price}}</strong></td>
+                            <td v-if="!product.editing" class="col-sm-1 col-md-1 text-center" @dblclick="editPrice(product)"><strong>
+                                {{product.price}}</strong>
+                            </td>
+                            <td v-else class="col-sm-1 col-md-1 text-center">
+                                <validation-provider rules="required|integer|min:0" v-slot="{ errors }" name="price">
+                                    <input type="number" v-model="newPrice" @blur="updatePrice(product)" min="0">
+                                    <span>{{ errors[0] }}</span>
+                                </validation-provider>
+                            </td>
+                            <td class="col-sm-1 col-md-1 text-center" ><strong>{{product.quantity * product.price}}</strong>
+                            </td>
                             <td class="col-sm-1 col-md-1">
-                                <button type="button" class="btn btn-danger add-input" @click="addToCard(product)">
-                                    <span class="glyphicon glyphicon-remove"></span> Add to card
-                                </button></td>
+                                <button type="button" class="btn btn-danger" @click="removeOrder(product.id)" :disabled="disable">
+                                    <span class="glyphicon glyphicon-remove"></span> Remove
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

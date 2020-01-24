@@ -8,13 +8,13 @@
 .shopping-bag {
     position: relative;
 }
-.product-count {
-    position: absolute;
-    top: 0;
-    color: red;
-    font-weight: bold;
-    left: 47px
-}
+/*.product-count {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    color: red;*/
+/*    font-weight: bold;*/
+/*    left: 47px*/
+/*}*/
 .adding-product small {
     font-size: 10px;
 }

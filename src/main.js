@@ -2,8 +2,11 @@ import Vue from 'vue';
 import Axios from 'axios';
 import { ValidationObserver } from 'vee-validate';
 import Toasted from 'vue-toasted';
+//import Paginate from 'vuejs-paginate';
 import App from './App.vue';
 import router from '../router';
+
+//Vue.component('paginate', Paginate);
 
 // eslint-disable-next-line import/prefer-default-export
 export const bus = new Vue();
@@ -21,11 +24,6 @@ if (token) {
   Axios.defaults.headers.Authorization = `bearer ${token}`;
 }
 router.beforeEach((to, from, next) => {
-    // console.log('user', (!to.matched.some((record) => record.meta.auth) && localStorage.getItem('token') && !!JSON.stringify(localStorage.getItem('admin'))));
-  // console.log('admin', (!to.matched.some((record) => (record.meta.admin))));
-  // console.log('admin', (localStorage.getItem('token')));
-  // console.log('admin', (JSON.stringify(localStorage.getItem('admin'))));
-  // console.log('userStatus', (to.matched.some((record) => record.meta.admin)));
   if (to.matched.some((record) => record.meta.auth) && !localStorage.getItem('token')) {
     next({
       path: '/login',

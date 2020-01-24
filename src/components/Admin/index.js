@@ -2,6 +2,8 @@ import Vue from 'vue';
 import { ValidationProvider } from 'vee-validate/dist/vee-validate.full.esm';
 import { ValidationObserver } from 'vee-validate';
 import router from '../../../router/index';
+import adminService from '../../services/admin';
+import userService from '../../services/user';
 import authService from '../../services/auth';
 // import { bus } from '../../main'
 Vue.router = router;
@@ -29,8 +31,8 @@ export default {
     ValidationObserver,
   },
   async mounted() {
-    await authService.user(this);
-    authService.getAdminsProducts(this);
+    await userService.user(this);
+    adminService.getAdminsProducts(this);
     console.log('this products', this.products);
   },
   methods: {
@@ -38,13 +40,13 @@ export default {
       authService.logout();
     },
     addProduct() {
-      authService.storeProduct(this, this.product);
+      adminService.storeProduct(this, this.product);
       this.product = {
         name: null,
         price: null,
         quantity: null,
       };
-      //this.$refs.observer.reset();
+      // this.$refs.observer.reset();
     },
     editPrice(product) {
       console.log('product editing', product);
@@ -66,7 +68,7 @@ export default {
           price: parseInt(product.price),
         };
         if (payload.price > 0) {
-          authService.updatePrice(this, payload, product.id);
+          adminService.updatePrice(this, payload, product.id);
         }
       }
     },
@@ -75,16 +77,13 @@ export default {
         quantity: parseInt(product.quantity),
       };
       if (payload.quantity > 0) {
-        authService.updateQuantity(payload, product.id);
+        adminService.updateQuantity(payload, product.id);
       }
     },
-    removeOrder(productId) {
+    removeOrder(productId, key) {
       const vm = this;
-     // vm.disable = true;
-      authService.deleteProduct(this, productId);
-      // setTimeout(function(){
-      //   vm.disable = false;
-      // },2000);
+      vm.products[key].disabled = true;
+      adminService.deleteProduct(this, productId);
     },
   },
 };

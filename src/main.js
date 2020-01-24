@@ -2,11 +2,11 @@ import Vue from 'vue';
 import Axios from 'axios';
 import { ValidationObserver } from 'vee-validate';
 import Toasted from 'vue-toasted';
-//import Paginate from 'vuejs-paginate';
+import Paginate from 'vuejs-paginate';
 import App from './App.vue';
 import router from '../router';
 
-//Vue.component('paginate', Paginate);
+Vue.component('paginate', Paginate);
 
 // eslint-disable-next-line import/prefer-default-export
 export const bus = new Vue();
@@ -50,6 +50,7 @@ Axios.interceptors.request.use((a) => {
 Axios.interceptors.response.use((a) => a, (error) => {
   if (error.response && error.response.status === 401) {
     console.log('error response', error.response);
+    debugger;
     localStorage.removeItem('token');
     localStorage.removeItem('admin');
     Vue.router.push('/login');

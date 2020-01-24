@@ -2,12 +2,11 @@ import Axios from 'axios';
 
 export default (context) => Axios.get('products').then((response) => {
   if (response && response.status === 200) {
-    response.data.product.map((item) => {
-      context.products.unshift({
-        ...item,
-        editing: false,
-      });
-    });
+    context.products = response.data.product.map((item) => ({
+      ...item,
+      editing: false,
+      disabled: false,
+    }));
   }
 }).catch((error) => {
   if (error && error.response && error.response.data) {

@@ -3,6 +3,7 @@ import { ValidationProvider } from 'vee-validate/dist/vee-validate.full.esm';
 import { ValidationObserver } from 'vee-validate';
 import router from '../../../router/index';
 import authService from '../../services/auth';
+import userService from '../../services/user';
 // import { bus } from '../../main'
 Vue.router = router;
 
@@ -25,8 +26,8 @@ export default {
     ValidationObserver,
   },
   async mounted() {
-    await authService.user(this);
-    authService.getAllProducts(this);
+    await userService.user(this);
+    userService.getAllProducts(this);
     // if(this.user.orders_count === 0) {
     //   this.user.orders_count = '';
     // }
@@ -36,7 +37,7 @@ export default {
       authService.logout();
     },
     addToCard(product) {
-      authService.storeToCard({
+      userService.storeToCard({
         user_id: this.user.id,
         product_id: product.id,
         number: parseInt(product.newQuantity),

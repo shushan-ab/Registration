@@ -3,10 +3,11 @@ import Vue from 'vue';
 
 export default (context, data) => Axios.post('auth/signin', data).then((response) => {
   if (response && response.status === 200) {
+    debugger;
     const { token } = response.data;
     localStorage.setItem('token', token);
     // this.$router.push({ name: 'Admin' });
-    console.log('dddd',response.data.user);
+    console.log('dddd', response.data.user);
     if (response.data.user.role_id === 1) {
       localStorage.setItem('admin', true);
       Vue.router.push('/admin');

@@ -109,15 +109,18 @@ img {
 
 /*-- end reset --*/
 .main-w3layouts {
-    background: #76b852;
+    /*background: #76b852;*/
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #76b852, #8DC26F);
-    background: -moz-linear-gradient(to top, #76b852, #8DC26F);
-    background: -o-linear-gradient(to top, #76b852, #8DC26F);
-    background: linear-gradient(to top, #76b852, #8DC26F);
+    /*background: -webkit-linear-gradient(to top, #76b852, #8DC26F);*/
+    /*background: -moz-linear-gradient(to top, #76b852, #8DC26F);*/
+    /*background: -o-linear-gradient(to top, #76b852, #8DC26F);*/
+    /*background: linear-gradient(to top, #76b852, #8DC26F);*/
     background-size: cover;
     background-attachment: fixed;
     font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    background: #5a5a5a !important;
+
 }
 
 h1 {
@@ -217,9 +220,9 @@ input.email, input.text.w3lpass {
 .fields input[type="submit"], .loginInput {
     font-size: .9em;
     color: #fff;
-    background: #76b852;
+    background: #5a5a5a;
     outline: none;
-    border: 1px solid #76b852;
+    border: 1px solid #9fa49b;
     cursor: pointer;
     padding: 0.9em;
     -webkit-appearance: none;

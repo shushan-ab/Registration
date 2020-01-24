@@ -49,7 +49,9 @@ Axios.interceptors.request.use((a) => {
 
 Axios.interceptors.response.use((a) => a, (error) => {
   if (error.response && error.response.status === 401) {
+    console.log('error response', error.response);
     localStorage.removeItem('token');
+    localStorage.removeItem('admin');
     Vue.router.push('/login');
   }
   return Promise.reject(error);

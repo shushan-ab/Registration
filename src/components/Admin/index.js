@@ -80,11 +80,11 @@ export default {
     },
     removeOrder(productId) {
       const vm = this;
-      vm.disable = true;
+     // vm.disable = true;
       authService.deleteProduct(this, productId);
-      setTimeout(function(){
-        vm.disable = false;
-      },2000);
+      // setTimeout(function(){
+      //   vm.disable = false;
+      // },2000);
     },
   },
 };

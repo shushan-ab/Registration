@@ -4,6 +4,7 @@ import Vue from 'vue';
 export default () => Axios.get('logout').then((response) => {
   if (response && response.status === 200) {
     localStorage.removeItem('token');
+    localStorage.removeItem('storedData');
     Vue.router.push('/login');
   }
 }).catch((error) => {

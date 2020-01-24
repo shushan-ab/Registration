@@ -5,5 +5,5 @@ export default (context) => Axios.get('user').then((response) => {
     context.user = response.data.user;
   }
 }).catch((error) => {
-  console.log('error', error.response);
+  console.log('error', error.response.data);
 });

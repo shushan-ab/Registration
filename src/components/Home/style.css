@@ -214,7 +214,7 @@ input.email, input.text.w3lpass {
     color: #fff;
 }
 
-.fields input[type="submit"] {
+.fields input[type="submit"], .loginInput {
     font-size: .9em;
     color: #fff;
     background: #76b852;

@@ -16,7 +16,7 @@ extend('confirmedBy', {
 Vue.config.productionTip = false;
 
 export default {
-  name: 'Home',
+  name: 'Registration',
   data() {
     return {
       user: {

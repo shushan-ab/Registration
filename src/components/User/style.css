@@ -400,6 +400,10 @@ body {
 .topBar a {
     color: #35404f;
 }
+.back-topBar {
+    background-color: #5a5a5a;
+    min-height: 54px;
+}
 .bag {
     position: absolute;
 }
@@ -507,8 +511,10 @@ ul, ol {
 .back-color {
     background-color: #5a5a5a;
     color: #f4f7fd;
-
 }
 footer {
     margin-top: 30px;
+}
+.line-height {
+    line-height: 26px;
 }

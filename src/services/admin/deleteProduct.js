@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 export default (context, id) => Axios.delete(`products/${id}`).then((response) => {
   if (response && response.status === 200) {
-    context.$toasted.success(response.data.status); // todo: ugjhgjh
+    context.$toasted.success(response.data.status);
     const index = context.products.findIndex((item) => item.id === id);
     context.products.splice(index, 1);
   } else {

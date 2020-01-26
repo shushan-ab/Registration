@@ -32,13 +32,12 @@
         </nav><!--=========-TOP_BAR============-->
 
     </div>
-
-
-
     <div class="container">
-        <div class="d-flex adding-product mb-3">
+        <div class="adding-product mb-3">
             <validation-observer v-slot="{ invalid }" ref="observer">
                 <form @submit.prevent="addProduct">
+                    <p class="product ml-2 mb-2">Add Product</p>
+                    <div class="d-flex flex-column justify-content-center align-items-center">
                     <div class="mb-3">
                         <validation-provider rules="alpha|required" v-slot="{ errors }" name="name">
                             <input type="text" class="form-control" placeholder="name" v-model="product.name">
@@ -58,6 +57,7 @@
                         </validation-provider>
                     </div>
                     <button class="btn btn-primary" type="submit" :disabled="invalid">Add</button>
+                </div>
                 </form>
             </validation-observer>
         </div>
@@ -111,4 +111,14 @@
             </div>
         </div>
     </div>
+    <paginate
+            :page-count="2"
+            :page-range="3"
+            :margin-pages="2"
+            :click-handler="clickCallback"
+            :prev-text="'Prev'"
+            :next-text="'Next'"
+            :container-class="'pagination'"
+            :page-class="'page-item'">
+    </paginate>
 </div>

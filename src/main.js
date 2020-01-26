@@ -1,13 +1,12 @@
 import Vue from 'vue';
 import Axios from 'axios';
 import { ValidationObserver } from 'vee-validate';
-import Toasted from 'vue-toasted';
 import Paginate from 'vuejs-paginate';
+import Toasted from 'vue-toasted';
 import App from './App.vue';
 import router from '../router';
 
 Vue.component('paginate', Paginate);
-
 // eslint-disable-next-line import/prefer-default-export
 export const bus = new Vue();
 

@@ -5,6 +5,7 @@ import router from '../../../router/index';
 import adminService from '../../services/admin';
 import userService from '../../services/user';
 import authService from '../../services/auth';
+
 // import { bus } from '../../main'
 Vue.router = router;
 
